@@ -19,7 +19,7 @@
 			</a>
 			<ul class="nav justify-content-center">
 				<li class="nav-item">
-					<a class=" nav-link" href="asset/pdf/Resume.pdf">Resume</a>
+					<a class=" nav-link" target="_blank" href="asset/pdf/Resume.pdf">Resume</a>
 				</li>
 				<li class="nav-item">
 					<a class=" nav-link" href="#research">Research</a>
@@ -40,14 +40,14 @@
 					<h4 class=''>M.S in Computer Science @ University of Pennsylvania</h4>
 					<div class="row">
 						<p class="text-muted mx-3 my-2">mona09 [at] seas.upenn.edu</p>
-						<span class="icon"><a class="text-dark" href="https://www.linkedin.com/in/monagandhi09/"><i
+						<span class="icon"><a class="text-dark" target="_blank" href="https://www.linkedin.com/in/monagandhi09/"><i
 							class="fab fa-linkedin mx-2"></i></a></span>
-						<span class="icon"><a class="text-dark"
+						<span class="icon"><a class="text-dark" target="_blank"
 								href="https://scholar.google.com/citations?user=1wHg0-sAAAAJ&hl=en"><i
 									class="fas fa-graduation-cap mx-2"></i></a></span>
-						<span class="icon"><a class="text-dark" href="https://github.com/monaGandhi09/"><i
+						<span class="icon"><a class="text-dark" target="_blank" href="https://github.com/monaGandhi09/"><i
 									class="fab fa-github mx-2"></i></a></span>
-						<span class="icon"><a class="text-dark"
+						<span class="icon"><a class="text-dark" target="_blank"
 							href="https://twitter.com/monagandhi09"><i class="fab fa-1x fa-twitter mx-2"></i></a></span>
 					</div>
 					<p>I am a Masters student majoring in Computer Science at University of Pennsylvania, where 
@@ -92,7 +92,7 @@
 		</div>
 	</section>
 	<section class="mx-5 my-5" id="research">
-		<h3 class="mx-5">Selected publications</h3>
+		<h3 class="mx-5">Publications</h3>
 		<ul class="list-group list-group-flush mx-5">
 			<li class="list-group-item bg-light">
 				<div class="row">
@@ -103,7 +103,10 @@
 						<p>Zixian Ma*, Jerry Hong*, Mustafa Omer Gul*, <b><u>Mona Gandhi</u></b>, Irena Gao, Ranjay Krishna</p>
 						<p>CVPR 2023 <span style="color:red;">
 							[Highlight: 10% of accepted papers / 2.5% of submissions]</span></p>
-						<p><a href="https://arxiv.org/pdf/2212.07796.pdf">[PDF]</a></p>
+						<p>
+							<a href="https://arxiv.org/pdf/2212.07796.pdf">[PDF]</a>
+							<a href="https://github.com/RAIVNLab/CREPE">[Code]</a>
+						</p>
 					</div>
 			</li>
 			<li class="list-group-item bg-light">
@@ -141,7 +144,6 @@
 							books, series, authors, and reviews. 
 							By signing in, users can create and maintain their own virtual library of poetry books, rate them, and receive custom
 							recommendations based on their past behaviour about new poetry books that they might enjoy.
-							In addition to these features, the application also seeks to encourage community engagement. 
 						</p>
 						<a href="asset/pdf/LivePoetsSocietyReport.pdf" target="_blank"
 							class="card-link">[Report]</a>
@@ -170,6 +172,27 @@
 							class="card-link">[Presentation]</a>
 							<a href="asset/image/SarcasmDetector.mp4" target="_blank"
 							class="card-link">[Video]</a>
+						<!-- <a href=""
+							class="card-link">[GitHub]</a> -->
+					</div>
+				</div>
+			</div>
+			<div class="col-4" style="padding-bottom: 30px;">
+				<div class="card mt-3 h-100">
+					<div class="card-body pb-0">
+						<h5 class="card-title">Sentiment Analysis</h5>
+						<h6 class="card-subtitle mb-2 text-muted">For Amazon Food Reviews [Spring 2023]</h6>
+						<p class="card-text"><i>Domain: </i>Natural Language Processing</p>
+						<p class="card-text">
+							We implemented a Sentiment analysis system for Amazon Food Reviews. 
+							Text cleaning and feature extraction techniques were performed on the reviews data, namely removing special characters and numbers, removing stop words, and tokenizing the data. 
+							Other forms of text vectorizations were also examined, including Word2Vec, GLOVE and Bag-of-Words. 
+							We developed baseline models using Naive Bayes, Logistic Regression, and XGBoost, before moving to LSTM models. Finally we also evaluated BERT embeddings with LSTM.
+						</p>
+						<a href="asset/pdf/SentimentAnalysis.pdf" target="_blank"
+							class="card-link">[Report]</a>
+						<a href="https://github.com/monaGandhi09/Sentiment-Analysis-of-Amazon-Fine-Food-Reviews" target="_blank"
+							class="card-link">[GitHub]</a>
 						<!-- <a href=""
 							class="card-link">[GitHub]</a> -->
 					</div>
@@ -221,7 +244,7 @@
 						<p class="card-text">
 							Managing information about students, staff, admission process for a Hostel is tedious. We created 
 							a website which does not not require the person handling the system to be very efficient or to be good at calculations. 
-							It greatly eases the work of efficiently managing the hostel. Some key features are managing data of students, staff, students' representative, 
+							Some key features are managing data of students, staff, students' representative, 
 							admission process, mess and also helps in maintaining exit-entry records of students who stay in the hostel, visitors and couriers delivered to them.
 						</p>
 						<a href="https://github.com/monaGandhi09/HosteLite" target="_blank"
