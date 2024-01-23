@@ -19,10 +19,10 @@
 			</a>
 			<ul class="nav justify-content-center">
 				<li class="nav-item">
-					<a class=" nav-link" target="_blank" href="asset/pdf/Resume.pdf">Resume</a>
+					<a class=" nav-link" target="_blank" href="asset/pdf/CV.pdf">CV</a>
 				</li>
 				<li class="nav-item">
-					<a class=" nav-link" href="#research">Research</a>
+					<a class=" nav-link" href="#research">Publications</a>
 				</li>
 				<li class="nav-item">
 					<a class=" nav-link" href="#project">Projects</a>
@@ -50,30 +50,26 @@
 						<span class="icon"><a class="text-dark" target="_blank"
 							href="https://twitter.com/monagandhi09"><i class="fab fa-1x fa-twitter mx-2"></i></a></span>
 					</div>
-					<p>I am a Masters student majoring in Computer Science at University of Pennsylvania, where 
-						I have been doing research with the wonderful <a href="https://www.cis.upenn.edu/~myatskar/">Prof. Mark Yatskar</a>.
-						Along with which I have also been lucky to be working with
-						<a class="" href="https://ranjaykrishna.com/index.html">Prof. Ranjay Krishna</a> at University of Washington 
-						and his cohort on various research projects. I did my B.Tech in Computer Science from V.J.T.I. during which I got the 
-						opportunity to remotely work with <a class="" href="https://ranjaykrishna.com/index.html">Prof. Ranjay Krishna</a> and 
-						<a class="" href="http://graphics.stanford.edu/~maneesh/">Prof. Maneesh Agrawala</a> at Stanford University.
+					<p>Hi! I am a second year Masters student majoring in Computer Science at University of Pennsylvania, where 
+						I have been doing research with <a href="https://www.cis.upenn.edu/~myatskar/">Prof. Mark Yatskar</a>.
+						In the past, I have also had the opportunity to work with <a class="" href="https://ranjaykrishna.com/index.html">Prof. Ranjay Krishna</a> and <a class="" href="http://graphics.stanford.edu/~maneesh/">Prof. Maneesh Agrawala</a>.
+						I did my B.Tech in Computer Science from Veermata Jijabai Technological Institute (VJTI). My current research interests lie at the intersection of vision and language, which have been the focus of my past and current research
+						experiences. 
 					</p>
 				</div>
 			</div>
 			<div class="row pt-5">
-				My current research interests lie at the intersection of vision and language, which have been the focus of my past research
-				experiences. I am specifically keen on studying interpretability of large models which is the focus of my recent research with Prof. Mark Yatskar.
+				<p>As increasingly powerful deep learning models in vision and language emerge, fundamental
+				questions like “What do the models actually learn?” and “What does the model base its predictions
+				on?” still persist. My long-term research goal is to build a robust and reliable model that would
+				be able to answer these questions. I wish to explore these two directions for it:
+				<br>
+				(i) leveraging human-like intuitions, such as learning <b>compositionally</b>, to boost the robustness of models and <br>
+				(ii) building <b>interpretable</b> models such that we can use <b>correctability</b> methods to make sure
+				they don't rely on biases 
+				<br> and thereby facilitating reliability and robustness.
+				</p>
 			</div>
-			<!-- <div class="row pt-5">
-					<p> My past projects cover multi-agent coordination, large language and vision models, and human-computer interaction.
-						My current research interests lie in the intersection between AI/ML and HCI, especially human-AI interaction and collaboration. I'm broadly interested in these research questions:<br>
-						<ul>
-							<li class="bg-light">Human side: what do end users need when collaborating with AI? How can we make explanations helpful (if possible) in human-AI collaboration?</li>
-							<li class="bg-light">AI/ML side: how do we develop ML models that can adapt to diverse user needs and behaviors?</li>
-							<li class="bg-light">Interaction: what human-AI interactions are possible? How can we leverage interaction data to inform model design and development?</li>
-						</ul>
-					</p>
-			</div> -->
 		</div>
 	</section>
 	<section class="mx-5 my-5" id="highlights">
@@ -135,6 +131,28 @@
 			<div class="col-4" style="padding-bottom: 30px;">
 				<div class="card mt-3 h-100">
 					<div class="card-body pb-0">
+						<h5 class="card-title">AutoArt</h5>
+						<h6 class="card-subtitle mb-2 text-muted">Neural Style Transfer [Fall 2022]</h6>
+						<p class="card-text"><i>Technologies: </i>Computer Vision, Deep Learning</p>
+						<p class="card-text">
+							We proposed and implemented two novel methods to improve our outputs for neural style transfer: 
+							(i) fine-tuning the model as a classification for a particular style, and 
+							(ii) flattening the layers to allow us the convenience of adding style and content loss inside the blocks. 
+							Through network dissection, we compare the best models and positions for style and content loss. 
+							We found that mobilenetv2 with flattening with fine-tuned model gave the best visual results. 
+						</p>
+						<a href="asset/pdf/AutoArt.pdf" target="_blank"
+							class="card-link">[Report]</a>
+							<a href="asset/pdf/AutoArt_ppt.pdf" target="_blank"
+							class="card-link">[Presentation]</a>
+						<a href="https://drive.google.com/drive/u/0/folders/1a7uhXOq46wZBkue8nrOeAfB5s1IVNx8x" target="_blank"
+							class="card-link">[Drive]</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-4" style="padding-bottom: 30px;">
+				<div class="card mt-3 h-100">
+					<div class="card-body pb-0">
 						<h5 class="card-title">Live Poets Society</h5>
 						<h6 class="card-subtitle mb-2 text-muted">Goodreads clone [Spring 2022]</h6>
 						<p class="card-text"><i>Technologies: </i>ReactJS, MySQL</p>
@@ -159,7 +177,7 @@
 					<div class="card-body pb-0">
 						<h5 class="card-title">Could this be any better?</h5>
 						<h6 class="card-subtitle mb-2 text-muted">Multi-modal Sarcasm Detector [Fall 2022]</h6>
-						<p class="card-text"><i>Domain: </i>Computer Vision and Natural Language Processing</p>
+						<p class="card-text"><i>Domain: </i>Computer Vision, Natural Language Processing</p>
 						<p class="card-text">
 							We implemented a Multi-modal Sarcasm Detector using video, audio and text features from the MUStARD dataset - data from 
 							various TV sitcoms like Friends, Big Bang Theory. 
