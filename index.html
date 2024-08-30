@@ -37,9 +37,9 @@
 					<img class="img-fluid rounded" src="asset/image/mona.jpg" alt="headshot">
 				</div>
 				<div class="col-9">
-					<h4 class=''>M.S in Computer Science @ University of Pennsylvania</h4>
+					<h4 class=''>Ph.D. in Computer Science @ The Ohio State University</h4>
 					<div class="row">
-						<p class="text-muted mx-3 my-2">mona09 [at] seas.upenn.edu</p>
+						<p class="text-muted mx-3 my-2">gandhi.255 [at] osu.edu</p>
 						<span class="icon"><a class="text-dark" target="_blank" href="https://www.linkedin.com/in/monagandhi09/"><i
 							class="fab fa-linkedin mx-2"></i></a></span>
 						<span class="icon"><a class="text-dark" target="_blank"
@@ -50,8 +50,9 @@
 						<span class="icon"><a class="text-dark" target="_blank"
 							href="https://twitter.com/monagandhi09"><i class="fab fa-1x fa-twitter mx-2"></i></a></span>
 					</div>
-					<p>Hi! I am a second year Masters student majoring in Computer Science at University of Pennsylvania, where 
-						I have been doing research with <a href="https://www.cis.upenn.edu/~myatskar/">Prof. Mark Yatskar</a>.
+					<p>Hi! I am an incoming PhD student majoring in Computer Science at The Ohio State University, working with <a class="" href="https://scholar.google.com/citations?user=2mjUsP8AAAAJ&hl=en">Prof. Srinivasan Parthasathy</a> and <a class="" href="https://efosler.github.io/">Prof. Eric Fosler-Lussier</a>. 
+						I completed my Masters in Computer Science at University of Pennsylvania, where 
+						I was grateful to be guided by <a href="https://www.cis.upenn.edu/~myatskar/">Prof. Mark Yatskar</a>.
 						In the past, I have also had the opportunity to work with <a class="" href="https://ranjaykrishna.com/index.html">Prof. Ranjay Krishna</a> and <a class="" href="http://graphics.stanford.edu/~maneesh/">Prof. Maneesh Agrawala</a>.
 						I did my B.Tech in Computer Science from Veermata Jijabai Technological Institute (VJTI). My current research interests lie at the intersection of vision and language, which have been the focus of my past and current research
 						experiences. 
@@ -73,8 +74,20 @@
 		</div>
 	</section>
 	<section class="mx-5 my-5" id="highlights">
-		<h3 class="mx-5">Highlights and Achievements</h3>
+		<h3 class="mx-5">Updates and Achievements</h3>
 		<ul class=" mx-5">
+			<li class="bg-light">
+				<b>[Aug, 2024] </b> Our paper <i>A Textbook Remedy for Domain Shifts: Knowledge Priors for Medical Image Analysis</i> has been accepted to NeurIPS 2024. 
+			</li>
+			<li class="bg-light">
+				<b>[May, 2024] </b> Awarded the <i>Best Teaching Award</i> at 
+			</li>
+			<li class="bg-light">
+				<b>[April, 2024] </b> Decided to go to <b>Ohio State University</b> for my PhD!
+			</li>
+			<li class="bg-light">
+				<b>[Mar, 2024] </b> Got Accepted at UPitt PhD program with the <i>K. Leroy Irvis fellowship</i> (not accepted).
+			</li>
 			<li class="bg-light">
 				<b>[Mar, 2023] </b> Our paper <i>CREPE: Can Vision-Language Foundation Models Reason Compositionally?</i> has been accepted to CVPR 2023 and selected as a &#127775;<b>highlight</b>&#127775;!
 			</li>
@@ -88,6 +101,25 @@
 		</div>
 	</section>
 	<section class="mx-5 my-5" id="research">
+		<h3 class="mx-5">Recent Preprints</h3>
+		<ul class="list-group list-group-flush mx-5">
+			<li class="list-group-item bg-light">
+				<div class="row">
+					<div class="col-3"><img class="img-fluid" src="asset/image/knobo-teaser.png" alt="knobo image">
+					</div>
+					<div class="col-9">
+						<h4 id='top' class=''>A Textbook Remedy for Domain Shifts: Knowledge Priors for Medical Image Analysis</h4>
+						<p>Yue Yang, <b><u>Mona Gandhi</u></b>, Yufei Wang, Yifan Wu, Michael S. Yao, Chris Callison-Burch, James C. Gee, Mark Yatskar</p>
+						<p>arxiv</p>
+						<p>
+							<a href="https://arxiv.org/abs/2405.14839">[PDF]</a>
+							<a href="https://yueyang1996.github.io/knobo/">[Website]</a>
+							<a href="https://github.com/YueYANG1996/KnoBo">[Code]</a>
+						</p>
+						<p>TL;DR: We introduce Knowledge Bottlenecks (KnoBo) that incorporate priors from medical documents, such as PubMed, through inherently interpretable models. KnoBo is robust to domain shifts in medical images, e.g., data sampled from different hospitals or data confounded by demographic variables such as sex, race, etc. Overall, our work demonstrates that a key missing ingredient for robustness to distribution shift in medical imaging models is a prior rooted in knowledge.</p>
+					</div>
+			</li>
+		</ul>
 		<h3 class="mx-5">Publications</h3>
 		<ul class="list-group list-group-flush mx-5">
 			<li class="list-group-item bg-light">
@@ -128,6 +160,25 @@
 	<section class="mx-5 my-5" id="project">
 		<h3 class="mx-5">Projects</h3>
 		<div class="row mx-5">
+			<div class="col-4" style="padding-bottom: 30px;">
+				<div class="card mt-3 h-100">
+					<div class="card-body pb-0">
+						<h5 class="card-title">Examining the Reversal Curse on GPT models</h5>
+						<h6 class="card-subtitle mb-2 text-muted">[Spring 2022]</h6>
+						<p class="card-text"><i>Technologies: </i>LLMs, Deep Learning</p>
+						<p class="card-text">
+							The Reversal Curse paper (linked below) highlights a simple task that these models fail at. If the model
+							has seen A is B, it is not guaranteed that the model can generalize B is A - this is coined as <i>Reversal Curse</i> in the paper.
+							In addition to replicating the results from the paper, we investigate the model on a verification task, where the model is asked a yes-no question. 
+							The model struggles to respond to these questions and even contradicts itself within the same response.
+						</p>
+						<a href="asset/pdf/CIS_7000_Project_1.pdf" target="_blank"
+							class="card-link">[Report]</a>
+						<a href="https://arxiv.org/abs/2309.12288" target="_blank"
+							class="card-link">[Original Paper]</a>
+					</div>
+				</div>
+			</div>
 			<div class="col-4" style="padding-bottom: 30px;">
 				<div class="card mt-3 h-100">
 					<div class="card-body pb-0">
