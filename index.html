@@ -9,6 +9,16 @@
 	<link rel='stylesheet' href='asset/css/bootstrap.css'>
 	<link rel='stylesheet' href='asset/css/all.css'>
 	<link rel='stylesheet' href='asset/css/style.css'>
+	<style>
+		ul.scroll {
+			margin: 4px, 4px;
+			padding: 4px;
+			height: 150px;
+			overflow-x: hidden;
+			overflow-y: auto;
+			text-align: justify;
+		}
+	</style>
 </head>
 
 <body class='bg-light'>
@@ -75,7 +85,8 @@
 	</section>
 	<section class="mx-5 my-5" id="highlights">
 		<h3 class="mx-5">Updates and Achievements</h3>
-		<ul class=" mx-5">
+		<!-- <div class="scroll"> -->
+		<ul class=" mx-5 scroll">
 			<li class="bg-light">
 				<b>[Aug, 2024] </b> Our paper <i>A Textbook Remedy for Domain Shifts: Knowledge Priors for Medical Image Analysis</i> has been accepted to NeurIPS 2024. 
 			</li>
@@ -98,7 +109,7 @@
 				<b>[June, 2018] </b> Stood <b><i>1st</i></b> among girls in MHT-CET (state-level entrance exam) which is appeared by 0.28M candidates.
 			</li>
 		</ul>
-		</div>
+		<!-- </div> -->
 	</section>
 	<section class="mx-5 my-5" id="research">
 		<h3 class="mx-5">Recent Preprints</h3>
@@ -159,7 +170,7 @@
 	</section>
 	<section class="mx-5 my-5" id="project">
 		<h3 class="mx-5">Projects</h3>
-		<div class="row mx-5">
+		<div class="row mx-5" id="project">
 			<div class="col-4" style="padding-bottom: 30px;">
 				<div class="card mt-3 h-100">
 					<div class="card-body pb-0">
