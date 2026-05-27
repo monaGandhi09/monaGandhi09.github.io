@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Through the PRISM</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/prism.png">
+
+  <style>
+    /* Compact table for dense numeric results */
+    .compact-table th, .compact-table td {
+      font-size: 12px;
+      padding: 6px 8px;
+      white-space: nowrap;
+    }
+    .compact-table thead th { font-size: 12px; }
+    .table-container { overflow-x: auto; }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav> -->
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Through the PRISM: Principle-Aware, Interpretable, and Multi-Scale Evaluation of Visual Designs</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://monagandhi09.github.io/">Mona Gandhi</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://josephkj.in/">Joseph KJ</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=2mjUsP8AAAAJ&hl=en">Srinivasan Parthasathy</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sayannag.github.io/">Sayan Nag</a><sup>2</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>The Ohio State University</span>
+            <span class="author-block"><sup>2</sup>Adobe Research</span>
+          </div>
+          <div class="is-size-7 publication-authors">
+            <span class="author-block">(* Work done during an internship at Adobe Research)</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="static/Through the PRISM.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser prism.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">PRISM</span>  systematically perturbs professional layouts along five measurable design principles, enabling interpretable, principle-specific evaluation of visual design quality.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Effective visual communication stems from the harmony of multiple design principles, such as readability, contrast, alignment, overlap, and coherence, which collectively govern clarity and intent of the communicator.
+            While human designers reason holistically over these principles, machine agents typically condense them into a single heuristic score, offering limited interpretability and diagnostic precision.
+          </p>
+          <p>
+            To address this gap, we introduce <b>PRISM</b> (<b>PR</b>inciple-aware, <b>I</b>nterpretable, and <b>S</b>tructure-guided Design <b>M</b>odifications), a benchmark that systematically perturbs professional layouts from the Crello dataset along measurable design principles. The benchmark comprises <b>100K</b> perturbed training samples and <b>10K</b> perturbed validation designs, each isolating a specific principle violation for controlled analysis of multimodal reasoning about design quality. We show that models like Qwen-2.5-VL and GPT-4o-mini are largely insensitive to targeted principle degradations, whereas GPT-4o exhibits global awareness without fine-grained disentanglement.
+          </p>
+          <p>
+            Building on these insights, we propose a multi-scale evaluation framework that integrates lightweight scorers for quantitative assessment, instruction-tuned vision-language models for localised feedback, and prompt-based methods for global reasoning.
+            Our framework provides interpretable explanations of design failures.
+            Using these localised insights, we show targeted refinements that improve layout quality.
+            Together, PRISM and our framework lay the foundation for interpretable design-literate multimodal reasoning systems.
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="section" style="margin-top: -60px;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">PRISM Perturbation Example</h2>
+    <div class="columns is-multiline is-variable is-3 has-text-centered">
+      <div class="column is-2-desktop is-4-tablet is-6-mobile" style="border-right: 2px solid #d9d9d9;">
+        <p><b>Unperturbed</b></p>
+        <img src="./static/images/composed.png" alt="Original composed layout from Crello.">
+        <p class="is-size-7 mt-2"><i>Original composed layout from Crello.</i></p>
+      </div>
+      <div class="column is-2-desktop is-4-tablet is-6-mobile">
+        <p><b>Coherence</b></p>
+        <img src="./static/images/coherence.png" alt="Text replaced with a different theme to break thematic consistency.">
+        <p class="is-size-7 mt-2"><i>Text replaced with a different theme to break thematic consistency.</i></p>
+      </div>
+      <div class="column is-2-desktop is-4-tablet is-6-mobile">
+        <p><b>Readability</b></p>
+        <img src="./static/images/readability.png" alt="Font attributes like size, color and line height modified to reduce legibility.">
+        <p class="is-size-7 mt-2"><i>Font attributes like size, color and line height modified to reduce legibility.</i></p>
+      </div>
+      <div class="column is-2-desktop is-4-tablet is-6-mobile">
+        <p><b>Contrast</b></p>
+        <img src="./static/images/contrast.png" alt="Element colors adjusted to reduce perceptual contrast.">
+        <p class="is-size-7 mt-2"><i>Element colors adjusted to reduce perceptual contrast.</i></p>
+      </div>
+      <div class="column is-2-desktop is-4-tablet is-6-mobile">
+        <p><b>Alignment</b></p>
+        <img src="./static/images/alignment.png" alt="Text boxes and icons displaced to disrupt alignment.">
+        <p class="is-size-7 mt-2"><i>Text boxes and icons displaced to disrupt alignment.</i></p>
+      </div>
+      <div class="column is-2-desktop is-4-tablet is-6-mobile">
+        <p><b>Overlap</b></p>
+        <img src="./static/images/overlap.png" alt="Icons, texts and elements overlapped to induce occlusion.">
+        <p class="is-size-7 mt-2"><i>Icons, texts and elements overlapped to induce occlusion.</i></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="method" style="margin-top: -60px;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Framework</h2>
+    <div class="content has-text-justified">
+      <p>
+        Building on PRISM, we develop two complementary modules for design evaluation. The <b>Scorer</b> quantitatively assesses whether each principle is satisfied. The <b>Localiser</b> provides spatially grounded feedback identifying regions responsible for each violation.
+      </p>
+    </div>
+
+    <div class="content has-text-centered">
+      <img src="./static/images/method.png" alt="Method overview showing Scorer and Localiser pipeline." style="max-width: 100%; height: auto;">
+    </div>
+    <div class="content has-text-justified">
+      <p>
+        <b>Scorer.</b> 
+        Independent binary classifiers trained on a design-aware SigLIP-v2 backbone — one per principle. Each scorer outputs a probability of principle adherence, providing interpretable decomposition of overall design quality into measurable dimensions aligned with human reasoning.
+      </p>
+    </div>  
+    <div class="content has-text-justified">
+      <p>
+        <b>Localiser.</b>
+        Qwen-2.5-VL instruction-tuned on PRISM's element-level annotations. Rather than generating free-form text, the localiser outputs the exact IDs of elements violating the queried principle — improving reliability and reproducibility over generative responses.
+      </p>
+    </div>
+    <h2 class="title is-3 has-text-centered">Model Sensitivity Analysis</h2>
+    <div class="content has-text-centered">
+      <iframe src="./prism_radar.html" width="100%" height="640" frameborder="0" style="border:none;"></iframe>
+    </div>
+    <div class="content has-text-justified" style="margin-top: -60px;">
+      <p>
+        We evaluate GPT-4o, GPT-4o-mini, and Qwen-2.5-VL on PRISM's validation set. GPT-4o shows global sensitivity to principle violations but lacks fine-grained disentanglement. In contrast, GPT-4o-mini and Qwen-2.5-VL are largely insensitive to targeted degradations, highlighting the need for design-aware training to achieve interpretable multimodal reasoning.
+      </p>
+    </div>
+        <!-- Table 2: localisation performance -->
+    <div class="content">
+      <div class="container is-max-desktop">
+        <h3 class="title is-4 has-text-centered">Localisation performance across principles</h3>
+        <div class="table-container">
+          <table class="table is-fullwidth is-striped is-hoverable compact-table">
+            <thead>
+              <tr>
+                <th rowspan="2">Model</th>
+                <th colspan="2" class="has-text-centered">Readability</th>
+                <th colspan="2" class="has-text-centered">Contrast</th>
+                <th colspan="2" class="has-text-centered">Overlap</th>
+              </tr>
+              <tr>
+                <th class="has-text-centered">IoU</th>
+                <th class="has-text-centered">F1-score</th>
+                <th class="has-text-centered">IoU</th>
+                <th class="has-text-centered">F1-score</th>
+                <th class="has-text-centered">IoU</th>
+                <th class="has-text-centered">F1-score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>QwenBase</th>
+                <td class="has-text-centered">0.3645</td><td class="has-text-centered">0.4312</td>
+                <td class="has-text-centered">0.2952</td><td class="has-text-centered">0.3804</td>
+                <td class="has-text-centered">0.3215</td><td class="has-text-centered">0.3770</td>
+              </tr>
+              <tr>
+                <th>QwenPrompted</th>
+                <td class="has-text-centered">0.3603</td><td class="has-text-centered">0.4147</td>
+                <td class="has-text-centered">0.3186</td><td class="has-text-centered">0.4049</td>
+                <td class="has-text-centered">0.3297</td><td class="has-text-centered">0.3984</td>
+              </tr>
+              <tr>
+                <th>GPT-4o-mini</th>
+                <td class="has-text-centered">0.4028</td><td class="has-text-centered">0.4718</td>
+                <td class="has-text-centered">0.3456</td><td class="has-text-centered">0.4478</td>
+                <td class="has-text-centered">0.3729</td><td class="has-text-centered">0.4526</td>
+              </tr>
+              <tr>
+                <th>GPT-4o</th>
+                <td class="has-text-centered">0.5532</td><td class="has-text-centered">0.6037</td>
+                <td class="has-text-centered">0.5164</td><td class="has-text-centered">0.6017</td>
+                <td class="has-text-centered">0.5417</td><td class="has-text-centered">0.6210</td>
+              </tr>
+              <tr class="has-background-link-light">
+                <th>QwenExpert (Ours)</th>
+                <td class="has-text-centered has-text-weight-bold">0.7833</td><td class="has-text-centered has-text-weight-bold">0.7998</td>
+                <td class="has-text-centered has-text-weight-bold">0.6761</td><td class="has-text-centered has-text-weight-bold">0.7196</td>
+                <td class="has-text-centered has-text-weight-bold">0.7328</td><td class="has-text-centered has-text-weight-bold">0.7730</td>
+              </tr>
+              <tr>
+                <th>Δ Ours − GPT-4o</th>
+                <td class="has-text-centered has-text-info">0.230↑</td><td class="has-text-centered has-text-info">0.196↑</td>
+                <td class="has-text-centered has-text-info">0.160↑</td><td class="has-text-centered has-text-info">0.118↑</td>
+                <td class="has-text-centered has-text-info">0.191↑</td><td class="has-text-centered has-text-info">0.152↑</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="has-text-centered is-size-6 has-text-grey">Localisation performance across principles. Fine-tuning Qwen-2.5-VL with PRISM annotations leads to substantial improvements in IoU and F1 compared to base, prompted, GPT-4o-mini and GPT-4o.</p>
+        </div>
+      </div>
+    </div>
+          <!-- Editing subsection -->
+
+          <div class="content has-text-centered" style="margin-top: 1.5rem; width: 100%;">
+            <h3 class="title is-4 centered">Editing Pipeline</h3>
+            <div class="content has-text-centered">
+              <img src="./static/images/editing.png" alt="Method overview showing Editing pipeline." style="max-width: 100%; height: auto;">
+            </div>
+            <div class="content has-text-justified">
+              <p>
+                Using feedback from the Localiser, we implement a beam search-based editing pipeline that proposes and scores candidate refinements at each iteration. The Scorer evaluates each candidate, retaining the top-k edits that best improve the targeted principle while preserving the overall layout structure. As a representative demonstration, we show coherence editing, for example, replacing a thematically inconsistent background or removing an irrelevant icon without disrupting other design attributes. The pipeline generalises naturally to all five principles.  
+              </p>
+            </div>
+            <!-- Editing Pipeline Example -->
+            <div class="columns is-centered" style="margin-top: 24px; overflow-x: hidden;">
+              
+              <!-- Step 1 -->
+              <div class="column is-narrow has-text-centered">
+                <p class="has-text-weight-bold" style="margin-bottom: -20px;">Score: 0.19</p>
+                <figure class="image">
+                  <img src="./static/images/coherence.png" alt="Incoherent design" style="max-width: 220px; margin: 0 auto;">
+                </figure>
+                <p class="is-size-7 has-text-grey" style="margin-top: -20px;">(a) Incoherent Design</p>
+              </div>
+
+              <!-- Arrow -->
+              <div class="column is-narrow has-text-centered" style="padding: 0 4px; display: flex; align-items: center;">
+                <span style="font-size: 1.8rem; color: #aaa;">→</span>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="column is-narrow has-text-centered">
+                <p class="has-text-weight-bold" style="margin-bottom: -20px;">Score: 0.62</p>
+                <figure class="image">
+                  <img src="./static/images/editing/1.png" alt="Background replaced" style="max-width: 220px; margin: 0 auto;">
+                </figure>
+                <p class="is-size-7 has-text-grey" style="margin-top: -20px;">(b) Background replaced</p>
+              </div>
+
+              <!-- Arrow -->
+              <div class="column is-narrow has-text-centered" style="padding: 0 4px; display: flex; align-items: center;">
+                <span style="font-size: 1.8rem; color: #aaa;">→</span>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="column is-narrow has-text-centered">
+                <p class="has-text-weight-bold" style="margin-bottom: -20px;">Score: 0.66</p>
+                <figure class="image">
+                  <img src="./static/images/editing/2.png" alt="Irrelevant icon removed" style="max-width: 220px; margin: 0 auto;">
+                </figure>
+                <p class="is-size-7 has-text-grey" style="margin-top: -20px;">(c) Irrelevant Icon removed</p>
+              </div>
+            </div>
+            <div class="content has-text-justified" style="margin-top: 1.5rem;">
+              <p>
+                Starting from an incoherent design (a), the pipeline first identifies the background as a key source of incoherence and proposes a replacement (b) that significantly improves the coherence score. A subsequent edit removes an irrelevant icon, further enhancing thematic consistency (c). This example demonstrates how targeted, principle-aware edits can iteratively refine design quality while preserving overall structure.
+              </p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content" style="margin-top: -70px;">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{gandhi2026prism,
+  author    = {Gandhi, Mona and Joseph, K J and Parthasarathy, Srinivasan and Nag, Sayan},
+  title     = {Through the PRISM: Principle-Aware, Interpretable, and Multi-Scale Evaluation of Visual Designs},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Findings},
+  year      = {2026},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/Through the PRISM.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/monaGandhi09" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+      <a class="icon-link" href="https://www.linkedin.com/in/monagandhi09/" class="external-link" disabled>
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a class="icon-link" href="mailto:gandhi.255@osu.edu" class="external-link">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website was developed by referencing <a
+              href="https://github.com/nerfies/nerfies.github.io">this</a>. The dataset and examples included use images from <a href="https://huggingface.co/datasets/cyberagent/crello">Crello dataset</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

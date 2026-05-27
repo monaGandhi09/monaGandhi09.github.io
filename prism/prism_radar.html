@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRISM Radar — Model Sensitivity</title>
+<style>
+  body { font-family: sans-serif; background: #fff; color: #222; margin: 0; padding: 16px; }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; justify-content: center; }
+  button { font-size: 14px; padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: background 0.15s; }
+  #radars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; }
+  .radar-cell { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .radar-title { font-size: 15px; font-weight: 700; text-align: center; }
+  .legend { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 16px; }
+  .legend span { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #555; }
+  .legend-line { width: 14px; height: 2.5px; display: inline-block; border-radius: 2px; }
+  #tooltip-text { text-align: center; font-size: 13px; color: #888; margin-top: 8px; min-height: 18px; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #1a1a1a; color: #eee; }
+    .legend span { color: #aaa; }
+  }
+</style>
+</head>
+<body>
+
+<div class="btn-row">
+  <button onclick="setActive('all')"   id="btn-all"   style="border:1.5px solid #888;background:#222;color:#fff;">All models</button>
+  <button onclick="setActive('qwen')"  id="btn-qwen"  style="border:1.5px solid #1D9E75;background:transparent;color:#1D9E75;">Qwen-2.5-VL</button>
+  <button onclick="setActive('mini')"  id="btn-mini"  style="border:1.5px solid #D4537E;background:transparent;color:#D4537E;">GPT-4o-mini</button>
+  <button onclick="setActive('gpt4o')" id="btn-gpt4o" style="border:1.5px solid #BA7517;background:transparent;color:#BA7517;">GPT-4o</button>
+  <button onclick="setActive('prism')" id="btn-prism" style="border:1.5px solid #378ADD;background:transparent;color:#378ADD;">PRISM-Scorer</button>
+</div>
+
+<div id="radars"></div>
+
+<div class="legend">
+  <span><span class="legend-line" style="background:#1D9E75;"></span>Qwen-2.5-VL</span>
+  <span><span class="legend-line" style="background:#D4537E;"></span>GPT-4o-mini</span>
+  <span><span class="legend-line" style="background:#BA7517;"></span>GPT-4o</span>
+  <span><span class="legend-line" style="background:#378ADD;"></span>PRISM-Scorer</span>
+</div>
+<p id="tooltip-text"></p>
+
+<script>
+// Axis order chosen so no two long labels are adjacent
+// Top: Coherence, then clockwise: Readability, Alignment, Overlap, Contrast
+const principles  = ['Coherence','Readability','Alignment','Overlap','Contrast'];
+const perturbations = ['Coherence','Readability','Contrast','Alignment','Overlap'];
+
+// Data keyed by perturbation type, values in SAME order as principles array above
+// Original data order was [Coherence, Readability, Contrast, Alignment, Overlap]
+// New axis order:          [Coherence, Readability, Alignment, Overlap,  Contrast]
+// So we remap: [0,1,3,4,2]
+function remap(arr) { return [arr[0], arr[1], arr[3], arr[4], arr[2]]; }
+
+// Values in order: [Coherence, Readability, Contrast, Alignment, Overlap]
+const rawData = {
+  Coherence:   { qwen:[0.061,0.071,0.058,0.090,0.049], mini:[0.088,0.081,0.045,0.104,0.091], gpt4o:[0.141,0.160,0.087,0.138,0.168], prism:[0.281,0.031,0.074,0.122,0.066] },
+  Readability: { qwen:[0.054,0.105,0.062,0.092,0.055], mini:[0.071,0.100,0.053,0.154,0.064], gpt4o:[0.118,0.250,0.158,0.121,0.190], prism:[0.056,0.324,0.134,0.102,0.080] },
+  Contrast:    { qwen:[0.060,0.080,0.110,0.085,0.060], mini:[0.075,0.095,0.150,0.110,0.075], gpt4o:[0.120,0.200,0.250,0.130,0.160], prism:[0.070,0.195,0.310,0.105,0.085] },
+  Alignment:   { qwen:[0.058,0.072,0.067,0.140,0.065], mini:[0.082,0.090,0.080,0.200,0.090], gpt4o:[0.125,0.165,0.120,0.210,0.155], prism:[0.070,0.150,0.110,0.310,0.170] },
+  Overlap:     { qwen:[0.060,0.075,0.070,0.085,0.140], mini:[0.085,0.100,0.095,0.115,0.185], gpt4o:[0.130,0.180,0.140,0.150,0.240], prism:[0.075,0.190,0.130,0.110,0.320] },
+};
+
+const data = {};
+Object.keys(rawData).forEach(k => {
+  data[k] = {};
+  Object.keys(rawData[k]).forEach(m => { data[k][m] = remap(rawData[k][m]); });
+});
+
+const models = {
+  qwen:  { color: '#1D9E75' },
+  mini:  { color: '#D4537E' },
+  gpt4o: { color: '#BA7517' },
+  prism: { color: '#378ADD' },
+};
+
+let activeModel = 'all';
+
+const W = 380, H = 260, cx = W/2, cy = H/2;
+const radarR = 100;
+const maxR = 0.35;
+const n = principles.length;
+const angles = principles.map((_, i) => i * 360 / n);
+
+function toXY(angleDeg, r) {
+  const rad = (angleDeg - 90) * Math.PI / 180;
+  return [cx + (r / maxR) * radarR * Math.cos(rad),
+          cy + (r / maxR) * radarR * Math.sin(rad)];
+}
+
+// Manual label positions tuned for the new axis order:
+// 0=Coherence(top), 1=Readability(upper-right), 2=Alignment(lower-right),
+// 3=Overlap(lower-left), 4=Contrast(upper-left)
+const labelOffsets = [
+  { dx:  0,   dy: -22, anchor: 'middle' }, // Coherence    — top
+  { dx:  22,  dy:  -8, anchor: 'start'  }, // Readability  — upper right
+  { dx:  20,  dy:  20, anchor: 'start'  }, // Alignment    — lower right
+  { dx: -20,  dy:  20, anchor: 'end'    }, // Overlap      — lower left
+  { dx: -22,  dy:  -8, anchor: 'end'    }, // Contrast     — upper left
+];
+
+function makeSVG(perturbKey) {
+  const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+  const gridColor = isDark ? 'rgba(255,255,255,0.13)' : 'rgba(0,0,0,0.1)';
+  const textColor = isDark ? '#aaa' : '#666';
+
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block;">`;
+
+  [0.1, 0.2, 0.3].forEach(r => {
+    const pts = angles.map(a => toXY(a, r).join(',')).join(' ');
+    svg += `<polygon points="${pts}" fill="none" stroke="${gridColor}" stroke-width="0.7"/>`;
+    const [lx, ly] = toXY(0, r);
+    svg += `<text x="${lx + 4}" y="${ly}" font-size="9" fill="${textColor}" dominant-baseline="middle" opacity="0.65">${r.toFixed(1)}</text>`;
+  });
+
+  angles.forEach(a => {
+    const [x, y] = toXY(a, maxR);
+    svg += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="${gridColor}" stroke-width="0.7"/>`;
+  });
+
+  const keys = activeModel === 'all' ? Object.keys(models) : [activeModel].filter(k => k !== 'all');
+  const vals = data[perturbKey];
+  keys.forEach(key => {
+    if (!vals[key]) return;
+    const m = models[key];
+    const pts = vals[key].map((v, i) => toXY(angles[i], v).join(',')).join(' ');
+    svg += `<polygon points="${pts}" fill="${m.color}20" stroke="${m.color}" stroke-width="1.6" stroke-linejoin="round"/>`;
+    vals[key].forEach((v, i) => {
+      const [px, py] = toXY(angles[i], v);
+      svg += `<circle cx="${px}" cy="${py}" r="2.5" fill="${m.color}"/>`;
+    });
+  });
+
+  const axisEnd = angles.map(a => toXY(a, maxR));
+  principles.forEach((p, i) => {
+    const [ax, ay] = axisEnd[i];
+    const off = labelOffsets[i];
+    const lx = ax + off.dx;
+    const ly = ay + off.dy;
+    const isBold = p === perturbKey;
+    const fill = isBold ? (isDark ? '#fff' : '#111') : textColor;
+    const weight = isBold ? '700' : '400';
+    const size = isBold ? '13' : '12';
+    svg += `<text x="${lx}" y="${ly}" font-size="${size}" text-anchor="${off.anchor}" fill="${fill}" font-weight="${weight}" dominant-baseline="middle">${p}</text>`;
+  });
+
+  svg += `</svg>`;
+  return svg;
+}
+
+function setActive(m) {
+  activeModel = m;
+  Object.keys(models).concat(['all']).forEach(key => {
+    const btn = document.getElementById('btn-' + key);
+    if (!btn) return;
+    btn.style.background = 'transparent';
+    btn.style.color = key === 'all' ? '#888' : models[key].color;
+    btn.style.border = '1.5px solid ' + (key === 'all' ? '#888' : models[key].color);
+    if (key === m) {
+      btn.style.background = key === 'all' ? '#222' : models[key].color + '22';
+      btn.style.color = key === 'all' ? '#fff' : models[key].color;
+    }
+  });
+  renderAll();
+}
+
+function radarCell(p) {
+  return `<div class="radar-cell" onmouseenter="showTip('${p}')" onmouseleave="hideTip()">
+    <div class="radar-title">${p}</div>
+    <div style="width:100%;">${makeSVG(p)}</div>
+  </div>`;
+}
+
+function renderAll() {
+  const top = perturbations.slice(0, 3);
+  const bottom = perturbations.slice(3);
+  const radars = document.getElementById('radars');
+  radars.innerHTML = top.map(p => radarCell(p)).join('');
+  const bottomRow = document.createElement('div');
+  bottomRow.style.cssText = 'display:flex; justify-content:center; gap:20px; grid-column:1/-1; width:100%;';
+  bottom.forEach(p => {
+    const cell = document.createElement('div');
+    cell.style.cssText = 'width:calc(33.33% - 10px);';
+    cell.innerHTML = radarCell(p);
+    bottomRow.appendChild(cell);
+  });
+  radars.appendChild(bottomRow);
+}
+
+function showTip(p) {
+  document.getElementById('tooltip-text').textContent =
+    `${p} perturbation — PRISM-Scorer spikes on the targeted axis.`;
+}
+function hideTip() {
+  document.getElementById('tooltip-text').textContent = '';
+}
+
+renderAll();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', renderAll);
+</script>
+</body>
+</html>
